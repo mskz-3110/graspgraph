@@ -12,7 +12,8 @@ Create easy-to-understand graphs
 `pip install graspgraph`
 
 ## Usage
-![](./image/sample_usage.png)
+### statsgraph
+![](https://github.com/mskz-3110/graspgraph/blob/main/image/sample_usage.png)
 ```python
 import graspgraph as gg
 
