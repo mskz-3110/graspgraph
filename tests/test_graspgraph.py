@@ -1,6 +1,7 @@
 import graspgraph as gg
 import numpy as np
 import pytest
+import os
 
 def figure_set_title_text(figure, statsgraph):
   figure.LayoutTitleText = """<b>[graspgraph]<br>X(Dtick:{:.3f} MaxCount:{}) Y(Dtick:{:.3f} MaxCount:{})</b>""".format(
@@ -20,12 +21,14 @@ def test_statsgraph():
   assert(stats.Min == (1, 3, 5))
   assert(stats.Max == (2, 4, 6))
 
+  os.makedirs("./image", exist_ok = True)
+
   statsgraph = gg.Statsgraph(
     gg.StatsgraphInputAxis([]),
     gg.StatsgraphInputAxis([]))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_none.png")
+  figure.write_image("./image/sample_empty.png")
 
   statsgraph = gg.Statsgraph(
     gg.StatsgraphInputAxis([1, 2, 3, 4, 5]),
