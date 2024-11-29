@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graspgraph"
-version = "0.0.2"
+version = "0.0.3"
 authors = [{name = "mskz-3110", email = "mskz.saito@gmail.com"}]
 description = "Create easy-to-understand graphs"
 readme = "README.md"
@@ -26,4 +26,4 @@ Issues = "https://github.com/mskz-3110/graspgraph/issues"
 
 [tool.pytest.ini_options]
 pythonpath = "src"
-testpaths = ["tests"]
+testpaths = ["test"]

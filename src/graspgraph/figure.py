@@ -1,4 +1,5 @@
 import plotly.graph_objects as pgo
+import os
 
 class FigureTick:
   def __init__(self, dtick = 1, format = "d"):
@@ -67,4 +68,5 @@ class FigureHelper:
     self.Figure.layout.yaxis.title.text = value
 
   def write_image(self, filePath, width = 1600, height = 900):
+    os.makedirs(os.path.dirname(filePath), exist_ok = True)
     self.Figure.write_image(filePath, width = width, height = height)

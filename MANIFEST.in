@@ -1,1 +1,1 @@
-recursive-exclude tests *.py
+recursive-exclude test *.py

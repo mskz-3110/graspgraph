@@ -64,10 +64,12 @@ class MultipleStats:
   def Max(self):
     return self.__Max
 
-class StatsgraphInputAxis:
-  def __init__(self, values, maxCount = 0, tick = FigureTick()):
+class StatsgraphAxis:
+  def __init__(self, values, maxCount = 0, tick = None):
     self.__Values = tuple(values)
     self.MaxCount = maxCount
+    if tick is None:
+      tick = FigureTick()
     self.Tick = tick
 
   @property
@@ -85,29 +87,31 @@ class StatsgraphInputAxis:
     self.__MaxCount = value
 
 class Statsgraph:
-  def __init__(self, xInputAxis, yInputAxis, colors = FigureColors()):
-    self.XInputAxis = xInputAxis
-    self.YInputAxis = yInputAxis
+  def __init__(self, xAxis, yAxis, colors = None):
+    self.XAxis = xAxis
+    self.YAxis = yAxis
+    if colors is None:
+      colors = FigureColors()
     self.Colors = colors
 
   def to_figure(self):
-    if len(self.YInputAxis.Values) <= self.XInputAxis.MaxCount:
-      xValues = self.XInputAxis.Values
-      xDtick = self.XInputAxis.Tick.Dtick
+    if len(self.YAxis.Values) <= self.XAxis.MaxCount:
+      xValues = self.XAxis.Values
+      xDtick = self.XAxis.Tick.Dtick
     else:
-      tick = self.XInputAxis.Values[1] - self.XInputAxis.Values[0]
-      step = (self.XInputAxis.Values[-1] - self.XInputAxis.Values[0] + tick) / self.XInputAxis.MaxCount
-      xValues = Array.arange(self.XInputAxis.Values[0] + step - tick, self.XInputAxis.Values[-1], step)
-      xDtick = max(step, self.XInputAxis.Tick.Dtick)
+      tick = self.XAxis.Values[1] - self.XAxis.Values[0]
+      step = (self.XAxis.Values[-1] - self.XAxis.Values[0] + tick) / self.XAxis.MaxCount
+      xValues = Array.arange(self.XAxis.Values[0] + step - tick, self.XAxis.Values[-1], step)
+      xDtick = max(step, self.XAxis.Tick.Dtick)
       if xValues[-1] <= xDtick:
         xDtick = step
-    ySimpleStats = SimpleStats(self.YInputAxis.Values)
-    yMultipleStats = MultipleStats(self.YInputAxis.Values, self.XInputAxis.MaxCount)
+    ySimpleStats = SimpleStats(self.YAxis.Values)
+    yMultipleStats = MultipleStats(self.YAxis.Values, self.XAxis.MaxCount)
     return FigureFactory.stats(
       xValues,
       [yMultipleStats.Min, yMultipleStats.Avg, yMultipleStats.Max],
-      [ySimpleStats.Min, min(self.YInputAxis.Tick.Dtick * self.YInputAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)],
-      [FigureTick(xDtick, self.XInputAxis.Tick.Format), self.YInputAxis.Tick],
+      [ySimpleStats.Min, min(self.YAxis.Tick.Dtick * self.YAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)],
+      [FigureTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick],
       self.Colors)
 
   def to_figure_helper(self):
