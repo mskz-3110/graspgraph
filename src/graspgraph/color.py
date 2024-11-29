@@ -1,31 +1,36 @@
-class RGB:
+class Color:
   def __init__(self, r = 0, g = 0, b = 0):
-    self.__R = min(max(r, 0), 255)
-    self.__G = min(max(g, 0), 255)
-    self.__B = min(max(b, 0), 255)
-    self.__Array = tuple([self.__R, self.__G, self.__B])
-    self.__HexCode = """#{:02X}{:02X}{:02X}""".format(r, g, b)
+    self.R = r
+    self.G = g
+    self.B = b
 
   @property
   def R(self):
     return self.__R
 
+  @R.setter
+  def R(self, value):
+    self.__R = min(max(value, 0), 255)
+
   @property
   def G(self):
     return self.__G
+
+  @G.setter
+  def G(self, value):
+    self.__G = min(max(value, 0), 255)
 
   @property
   def B(self):
     return self.__B
 
-  @property
-  def Array(self):
-    return self.__Array
+  @B.setter
+  def B(self, value):
+    self.__B = min(max(value, 0), 255)
 
-  @property
-  def HexCode(self):
-    return self.__HexCode
+  def to_string(self, format):
+    return format.format(R = self.R, G = self.G, B = self.B)
 
   @classmethod
   def from_hex_code(cls, hexCode):
-    return RGB(*[int(hexCode[i: i + 2], 16) for i in range(1, 7, 2)])
+    return Color(*[int(hexCode[i: i + 2], 16) for i in range(1, 7, 2)])

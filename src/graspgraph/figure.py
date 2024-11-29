@@ -1,4 +1,42 @@
-from collections import Counter
+import plotly.graph_objects as pgo
+
+class FigureTick:
+  def __init__(self, dtick = 1, format = "d"):
+    self.Dtick = dtick
+    self.Format = format
+
+class FigureColors:
+  def __init__(self, layoutTitle = "black", xTitle = "black", yTitle = "black", grid = "gray", background = "white", line = "rgb(0, 0, 0)", fill = "rgba(0, 0, 0, 0.15)"):
+    self.LayoutTitle = layoutTitle
+    self.XTitle = xTitle
+    self.YTitle = yTitle
+    self.Grid = grid
+    self.Background = background
+    self.Line = line
+    self.Fill = fill
+
+class FigureFactory:
+  @classmethod
+  def stats(cls, xValues, yValueGroups, yRange, ticks, colors):
+    if len(xValues) <= 0:
+      xValues = [0]
+      ticks[0].Dtick = 1
+    for i in range(3):
+      if len(yValueGroups[i]) <= 0:
+        yValueGroups[i] = [0]
+        ticks[1].Dtick = 1
+    figure = pgo.Figure(data = [
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[0], line = dict(color = colors.Line, width = 0)),
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[1], line = dict(color = colors.Line, width = 5), fillcolor = colors.Fill, fill = "tonexty"),
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[2], line = dict(color = colors.Line, width = 0), fillcolor = colors.Fill, fill = "tonexty")])
+    figure.update_xaxes(zeroline = True, zerolinecolor = colors.Grid, zerolinewidth = 0.5, tickformat = ticks[0].Format, dtick = ticks[0].Dtick, linecolor = colors.Grid, linewidth = 3, gridcolor = colors.Grid, griddash = "dot", mirror = True)
+    figure.update_yaxes(zeroline = True, zerolinecolor = colors.Grid, zerolinewidth = 0.5, tickformat = ticks[1].Format, dtick = ticks[1].Dtick, linecolor = colors.Grid, linewidth = 3, gridcolor = colors.Grid, griddash = "dot", mirror = True)
+    figure.update_layout(title = dict(text = "", font = dict(color = colors.LayoutTitle, size = 26), x = 0.5),
+      xaxis = dict(title = "", color = colors.XTitle, tick0 = xValues[0]),
+      yaxis = dict(title = "", color = colors.YTitle, range = yRange),
+      font = dict(size = 14),
+      paper_bgcolor = colors.Background, plot_bgcolor = colors.Background)
+    return figure
 
 class FigureHelper:
   def __init__(self, figure):
@@ -13,36 +51,12 @@ class FigureHelper:
     self.Figure.layout.title.text = value
 
   @property
-  def LayoutTitleColor(self):
-    return self.Figure.layout.title.font.color
-
-  @LayoutTitleColor.setter
-  def LayoutTitleColor(self, value):
-    self.Figure.layout.title.font.color = value
-
-  @property
-  def BackgroundColor(self):
-    return Counter([self.Figure.layout.paper_bgcolor, self.Figure.layout.plot_bgcolor]).most_common(1)[0][0]
-
-  @BackgroundColor.setter
-  def BackgroundColor(self, value):
-    self.Figure.layout.paper_bgcolor = self.Figure.layout.plot_bgcolor = value
-
-  @property
   def XTitleText(self):
     return self.Figure.layout.xaxis.title.text
 
   @XTitleText.setter
   def XTitleText(self, value):
     self.Figure.layout.xaxis.title.text = value
-
-  @property
-  def XTitleColor(self):
-    return self.Figure.layout.xaxis.color
-
-  @XTitleColor.setter
-  def XTitleColor(self, value):
-    self.Figure.layout.xaxis.color = value
 
   @property
   def YTitleText(self):
@@ -52,59 +66,5 @@ class FigureHelper:
   def YTitleText(self, value):
     self.Figure.layout.yaxis.title.text = value
 
-  @property
-  def YTitleColor(self):
-    return self.Figure.layout.yaxis.color
-
-  @YTitleColor.setter
-  def YTitleColor(self, value):
-    self.Figure.layout.yaxis.color = value
-
-  @property
-  def GridColor(self):
-    return Counter([
-      self.Figure.layout.xaxis.linecolor, self.Figure.layout.xaxis.gridcolor, self.Figure.layout.xaxis.zerolinecolor,
-      self.Figure.layout.yaxis.linecolor, self.Figure.layout.yaxis.gridcolor, self.Figure.layout.yaxis.zerolinecolor]).most_common(1)[0][0]
-
-  @GridColor.setter
-  def GridColor(self, value):
-    self.Figure.layout.xaxis.linecolor = self.Figure.layout.xaxis.gridcolor = self.Figure.layout.xaxis.zerolinecolor = value
-    self.Figure.layout.yaxis.linecolor = self.Figure.layout.yaxis.gridcolor = self.Figure.layout.yaxis.zerolinecolor = value
-
-  @property
-  def XDtick(self):
-    return self.Figure.layout.xaxis.dtick
-
-  @property
-  def YDtick(self):
-    return self.Figure.layout.yaxis.dtick
-
-  @property
-  def Dticks(self):
-    return [self.XDtick, self.YDtick]
-
-  def set_texts(self, layoutTitle = None, xTitle = None, yTitle = None):
-    if layoutTitle is not None:
-      self.LayoutTitleText = layoutTitle
-    if xTitle is not None:
-      self.XTitleText = xTitle
-    if yTitle is not None:
-      self.YTitleText = yTitle
-
-  def set_colors(self, layoutTitle = None, xTitle = None, yTitle = None, grid = None, background = None):
-    if layoutTitle is not None:
-      self.LayoutTitleColor = layoutTitle
-    if xTitle is not None:
-      self.XTitleColor = xTitle
-    if yTitle is not None:
-      self.YTitleColor = yTitle
-    if grid is not None:
-      self.GridColor = grid
-    if background is not None:
-      self.BackgroundColor = background
-
-  def write_image(self, filePath = None, width = 1600, height = 900):
-    if filePath is None:
-      self.Figure.show()
-    else:
-      self.Figure.write_image(filePath, width = width, height = height)
+  def write_image(self, filePath, width = 1600, height = 900):
+    self.Figure.write_image(filePath, width = width, height = height)
