@@ -13,7 +13,7 @@ Create easy-to-understand graphs
 
 ## Usage
 ### statsgraph
-![](https://github.com/mskz-3110/graspgraph/blob/main/image/sample_usage.png)
+![](https://github.com/mskz-3110/graspgraph/blob/main/images/stats/usage.png)
 ```python
 import graspgraph as gg
 
@@ -26,5 +26,5 @@ def test_statsgraph_usage():
   figure.LayoutTitleText = "<b>[statsgraph]<br>Title</b>"
   figure.XTitleText = "X"
   figure.YTitleText = "Y"
-  figure.write_image("./image/sample_usage.png")
+  figure.write_image("./images/stats/usage.png")
 ```

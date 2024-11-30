@@ -25,7 +25,7 @@ def test_statsgraph():
     gg.StatsgraphAxis([]))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_empty.png")
+  figure.write_image("./images/stats/sample_empty.png")
 
   statsgraph = gg.Statsgraph(
     gg.StatsgraphAxis([1, 2, 3, 4, 5]),
@@ -33,7 +33,7 @@ def test_statsgraph():
     gg.FigureColors(layoutTitle = "red", line = "red"))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_over.png")
+  figure.write_image("./images/stats/sample_over.png")
 
   green = gg.Color.from_hex_code("#00FF00")
   rgbGreen = green.to_string("""rgb({R}, {G}, {B})""")
@@ -44,7 +44,7 @@ def test_statsgraph():
     gg.FigureColors(layoutTitle = "red", xTitle = "blue", yTitle = "blue", grid = "white", background = "gray", line = rgbGreen, fill = rgbaGreen))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_coloring.png")
+  figure.write_image("./images/stats/sample_coloring.png")
 
   yValues = []
   for value in np.sin(np.linspace(0, 2 * np.pi, 60)):
@@ -55,7 +55,7 @@ def test_statsgraph():
     gg.FigureColors(layoutTitle = rgbGreen, line = rgbGreen, fill = rgbaGreen))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_sin_simple.png")
+  figure.write_image("./images/stats/sample_sin_simple.png")
 
   statsgraph.XAxis.Tick.Dtick = 5
   statsgraph.XAxis.MaxCount = 10
@@ -63,20 +63,20 @@ def test_statsgraph():
   statsgraph.YAxis.MaxCount = 5
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_sin_multiple.png")
+  figure.write_image("./images/stats/sample_sin_multiple.png")
 
   statsgraph.XAxis = gg.StatsgraphAxis(gg.Array.arange(-0.9, 0.9, 0.2), tick = gg.FigureTick(0.2, ".1f"))
   statsgraph.YAxis = gg.StatsgraphAxis(gg.Array.arange(-2.25, 2.25, 0.5), tick = gg.FigureTick(0.5, ".1f"))
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_float_simple.png")
+  figure.write_image("./images/stats/sample_float_simple.png")
 
   statsgraph.XAxis.MaxCount = 5
   statsgraph.YAxis.Tick.Dtick = 1
   statsgraph.YAxis.MaxCount = 5
   figure = statsgraph.to_figure_helper()
   figure_set_title_text(figure, statsgraph)
-  figure.write_image("./image/sample_float_multiple.png")
+  figure.write_image("./images/stats/sample_float_multiple.png")
 
 def test_statsgraph_usage():
   statsgraph = gg.Statsgraph(
@@ -87,4 +87,4 @@ def test_statsgraph_usage():
   figure.LayoutTitleText = "<b>[statsgraph]<br>Title</b>"
   figure.XTitleText = "X"
   figure.YTitleText = "Y"
-  figure.write_image("./image/sample_usage.png")
+  figure.write_image("./images/stats/usage.png")
