@@ -5,7 +5,7 @@ Create easy-to-understand graphs
 
 |Version|Summary|
 |:--|:--|
-|0.1.0|Release statsgraph|
+|0.1.0|Release graspgraph|
 
 ## Installation
 
@@ -13,7 +13,7 @@ Create easy-to-understand graphs
 
 ## Usage
 ### statsgraph
-![](https://github.com/mskz-3110/graspgraph/blob/main/images/stats/usage.png)
+![](./images/stats/usage.png)
 ```python
 import graspgraph as gg
 
@@ -23,8 +23,8 @@ def test_statsgraph_usage():
     gg.StatsgraphAxis([11, 12, 13, 14, 15]),
     gg.FigureColors(line = "blue"))
   figure = statsgraph.to_figure_helper()
-  figure.LayoutTitleText = "<b>[statsgraph]<br>Title</b>"
-  figure.XTitleText = "X"
-  figure.YTitleText = "Y"
+  figure.LayoutTitleText = "<b>[statsgraph]<br>タイトル</b>"
+  figure.XTitleText = "X軸"
+  figure.YTitleText = "Y軸"
   figure.write_image("./images/stats/usage.png")
 ```

@@ -1,6 +1,5 @@
 import graspgraph as gg
 import numpy as np
-import pytest
 
 def figure_set_title_text(figure, statsgraph):
   figure.LayoutTitleText = """<b>[graspgraph]<br>X(Dtick:{:.3f} MaxCount:{}) Y(Dtick:{:.3f} MaxCount:{})</b>""".format(
@@ -84,7 +83,7 @@ def test_statsgraph_usage():
     gg.StatsgraphAxis([11, 12, 13, 14, 15]),
     gg.FigureColors(line = "blue"))
   figure = statsgraph.to_figure_helper()
-  figure.LayoutTitleText = "<b>[statsgraph]<br>Title</b>"
-  figure.XTitleText = "X"
-  figure.YTitleText = "Y"
+  figure.LayoutTitleText = "<b>[statsgraph]<br>タイトル</b>"
+  figure.XTitleText = "X軸"
+  figure.YTitleText = "Y軸"
   figure.write_image("./images/stats/usage.png")
