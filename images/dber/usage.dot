@@ -1,0 +1,20 @@
+digraph {
+	graph [bgcolor=white dpi=350 margin=0 rankdir=LR]
+	node [fontname="Yu Mincho Demibold" shape=none]
+	edge [color=skyblue]
+	subgraph cluster_Database0 {
+		color=black fontcolor=black label=Database0 labeljust=l
+		Database0_Table0 [label=<<font color="black"><table border="1" cellspacing="0" cellpadding="0" color="gray" bgcolor="gray"><tr><td colspan="2"><b>Table0(テーブル0)</b></td></tr><tr><td bgcolor="white" cellpadding="2" port="id"> id(ID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> PK </td></tr><tr><td bgcolor="white" cellpadding="2" port="table1_id"> table1_id(テーブル1のID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> FK </td></tr><tr><td bgcolor="white" cellpadding="2" port="table2_id"> table2_id(テーブル2のID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> FK </td></tr><tr><td bgcolor="white" cellpadding="2" port="table3_id"> table3_id(テーブル3のID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> FK </td></tr></table></font>>]
+	}
+	subgraph cluster_Database1 {
+		color=black fontcolor=black label=Database1 labeljust=l
+		Database1_Table1 [label=<<font color="black"><table border="1" cellspacing="0" cellpadding="0" color="gray" bgcolor="gray"><tr><td colspan="2"><b>Table1(テーブル1)</b></td></tr><tr><td bgcolor="white" cellpadding="2" port="id"> id(ID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> PK </td></tr><tr><td bgcolor="white" cellpadding="2" port="name"> name(名前) </td><td bgcolor="white" cellpadding="2" align="left"> VARCHAR(10) </td><td bgcolor="white" cellpadding="2" align="left">  </td></tr><tr><td bgcolor="white" cellpadding="2" port="table2_id"> table2_id(テーブル2のID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> FK </td></tr><tr><td bgcolor="white" cellpadding="2" port="table3_id"> table3_id(テーブル3のID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> FK </td></tr></table></font>>]
+		Database1_Table2 [label=<<font color="black"><table border="1" cellspacing="0" cellpadding="0" color="gray" bgcolor="gray"><tr><td colspan="2"><b>Table2(テーブル2)</b></td></tr><tr><td bgcolor="white" cellpadding="2" port="id"> id(ID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> PK </td></tr><tr><td bgcolor="white" cellpadding="2" port="name"> name(名前) </td><td bgcolor="white" cellpadding="2" align="left"> VARCHAR(10) </td><td bgcolor="white" cellpadding="2" align="left">  </td></tr></table></font>>]
+		Database1_Table3 [label=<<font color="black"><table border="1" cellspacing="0" cellpadding="0" color="gray" bgcolor="gray"><tr><td colspan="2"><b>Table3(テーブル3)</b></td></tr><tr><td bgcolor="white" cellpadding="2" port="id"> id(ID) </td><td bgcolor="white" cellpadding="2" align="left"> INT </td><td bgcolor="white" cellpadding="2" align="left"> PK </td></tr><tr><td bgcolor="white" cellpadding="2" port="name"> name(名前) </td><td bgcolor="white" cellpadding="2" align="left"> VARCHAR(10) </td><td bgcolor="white" cellpadding="2" align="left">  </td></tr></table></font>>]
+	}
+	Database0_Table0:table1_id -> Database1_Table1:id [arrowtail=crow dir=back]
+	Database0_Table0:table2_id -> Database1_Table2:id [arrowtail=crow dir=back]
+	Database1_Table1:table2_id -> Database1_Table2:id [arrowtail=crow dir=back]
+	Database0_Table0:table3_id -> Database1_Table3:id [arrowtail=crow dir=back]
+	Database1_Table1:table3_id -> Database1_Table3:id [arrowtail=crow dir=back]
+}

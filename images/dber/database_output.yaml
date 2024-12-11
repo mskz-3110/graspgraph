@@ -1,0 +1,82 @@
+Tables:
+- Namespace: Database0
+  Name: Table0
+  Comment: テーブル0
+  Columns:
+  - Name: id
+    Type: INT
+    Comment: ID
+    Caption: PK
+    Relations: []
+  - Name: table1_id
+    Type: INT
+    Comment: テーブル1のID
+    Caption: FK
+    Relations: []
+  - Name: table2_id
+    Type: INT
+    Comment: テーブル2のID
+    Caption: FK
+    Relations: []
+  - Name: table3_id
+    Type: INT
+    Comment: テーブル3のID
+    Caption: FK
+    Relations: []
+- Namespace: Database1
+  Name: Table1
+  Comment: テーブル1
+  Columns:
+  - Name: id
+    Type: INT
+    Comment: ID
+    Caption: PK
+    Relations:
+    - Database0.Table0.table1_id
+  - Name: name
+    Type: VARCHAR(10)
+    Comment: 名前
+    Caption: ''
+    Relations: []
+  - Name: table2_id
+    Type: INT
+    Comment: テーブル2のID
+    Caption: FK
+    Relations: []
+  - Name: table3_id
+    Type: INT
+    Comment: テーブル3のID
+    Caption: FK
+    Relations: []
+- Namespace: Database1
+  Name: Table2
+  Comment: テーブル2
+  Columns:
+  - Name: id
+    Type: INT
+    Comment: ID
+    Caption: PK
+    Relations:
+    - Database0.Table0.table2_id
+    - Database1.Table1.table2_id
+  - Name: name
+    Type: VARCHAR(10)
+    Comment: 名前
+    Caption: ''
+    Relations: []
+- Namespace: Database1
+  Name: Table3
+  Comment: テーブル3
+  Columns:
+  - Name: id
+    Type: INT
+    Comment: ID
+    Caption: PK
+    Relations:
+    - Database0.Table0.table3_id
+    - Database1.Table1.table3_id
+  - Name: name
+    Type: VARCHAR(10)
+    Comment: 名前
+    Caption: ''
+    Relations: []

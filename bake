@@ -2,7 +2,8 @@
 
 case ${1:-test} in
   "test")
-    pipenv run pytest -s
+    shift 1
+    pipenv run pytest -s $@
     ;;
   "build")
     rm -fr dist *.egg-info src/*.egg-info

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graspgraph"
-version = "0.1.0"
+version = "0.1.4"
 authors = [{name = "mskz-3110", email = "mskz.saito@gmail.com"}]
 description = "Create easy-to-understand graphs"
 readme = "README.md"
@@ -18,6 +18,10 @@ dependencies = [
   "plotly",
   "numpy",
   "kaleido==1.0.0rc0",
+  "graphviz",
+  "pydantic",
+  "pyyaml",
+  "inflection",
 ]
 
 [project.urls]
