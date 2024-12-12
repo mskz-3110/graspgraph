@@ -9,7 +9,7 @@ def test_dbergraph():
   assert(path.to_string() == filePath)
 
   dbergraph = gg.Dbergraph(
-    gg.Database().load("./images/dber/database_input.yaml"),
+    gg.Database.from_file_path("./images/dber/database_input.yaml"),
     gg.DotColors("orange", "blue", "white", "green", "red", "gray"))
   dbergraph.Database.update().save("./images/dber/database_output.yaml")
   prefix = "./images/dber/sample_coloring"

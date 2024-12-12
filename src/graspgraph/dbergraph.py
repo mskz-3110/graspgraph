@@ -73,6 +73,10 @@ class Database(BaseModel):
   def from_yaml(cls, stream):
     return Database(**yaml.safe_load(stream) or {"Tables": []})
 
+  @classmethod
+  def from_file_path(cls, filePath):
+    return Database().load(filePath)
+
 class Dbergraph:
   def __init__(self, database = None, colors = None, fontName = None):
     if database is None:
