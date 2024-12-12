@@ -12,6 +12,10 @@ class Column(BaseModel):
   Caption: str = ""
   Relations: list[str] = []
 
+  def set_caption_if_empty(self, caption):
+    if len(self.Caption) == 0:
+      self.Caption = caption
+
   def display_name(self):
     if len(self.Comment) == 0:
       return self.Name
@@ -51,8 +55,7 @@ class Database(BaseModel):
               relation = """{}.{}""".format(otherTable.path(), otherColumn.Name)
               if relation not in column.Relations:
                 column.Relations.append(relation)
-                if len(otherColumn.Caption) == 0:
-                  otherColumn.Caption = "FK"
+                otherColumn.set_caption_if_empty("FK")
     return self
 
   def load(self, filePath):
