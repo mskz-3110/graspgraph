@@ -11,6 +11,7 @@ graphviz = "*"
 pydantic = "*"
 pyyaml = "*"
 inflection = "*"
+pdf2image = "*"
 
 [dev-packages]
 pytest = "*"

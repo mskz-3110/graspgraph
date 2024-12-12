@@ -6,3 +6,4 @@ from .dbergraph import *
 from .dot import *
 from .font import *
 from .path import *
+from .pdf import *
