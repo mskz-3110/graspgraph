@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graspgraph"
-version = "0.2.0"
+version = "0.2.1"
 authors = [{name = "mskz-3110", email = "mskz.saito@gmail.com"}]
 description = "Create easy-to-understand graphs"
 readme = "README.md"
@@ -22,6 +22,7 @@ dependencies = [
   "pydantic",
   "pyyaml",
   "inflection",
+  "pdf2image",
 ]
 
 [project.urls]

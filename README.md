@@ -5,7 +5,7 @@ Create easy-to-understand graphs
 
 |Version|Summary|
 |:--|:--|
-|0.2.0|Add dbergraph|
+|0.2.1|Add dbergraph|
 |0.1.0|Release graspgraph|
 
 ## Installation
