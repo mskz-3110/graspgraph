@@ -10,12 +10,14 @@ def test_dbergraph():
 
   dbergraph = gg.Dbergraph(
     gg.Database().load("./images/dber/database_input.yaml"),
-    gg.DotColors("blue", "white", "green", "red", "gray"))
+    gg.DotColors("orange", "blue", "white", "green", "red", "gray"))
   dbergraph.Database.update().save("./images/dber/database_output.yaml")
   prefix = "./images/dber/sample_coloring"
   pdfFilePath = gg.Path.join(prefix, "pdf")
   pngFilePath = gg.Path.join(prefix, "png")
-  dbergraph.to_dot_helper().write_image(pdfFilePath)
+  dot = dbergraph.to_dot_helper()
+  dot.TitleText = "<b>[dbergraph]</b>"
+  dot.write_image(pdfFilePath)
   gg.Pdf.convert(pdfFilePath, pngFilePath)
 
 def test_dbergraph_usage():
@@ -25,5 +27,7 @@ def test_dbergraph_usage():
     prefix = "./images/dber/usage"
     pdfFilePath = gg.Path.join(prefix, "pdf")
     pngFilePath = gg.Path.join(prefix, "png")
-    dbergraph.to_dot_helper().write_image(pdfFilePath)
+    dot = dbergraph.to_dot_helper()
+    dot.TitleText = "<b>[dbergraph]</b>"
+    dot.write_image(pdfFilePath)
     gg.Pdf.convert(pdfFilePath, pngFilePath)

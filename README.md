@@ -43,6 +43,8 @@ dbergraph.Database.update()
 prefix = "./images/dber/usage"
 pdfFilePath = gg.Path.join(prefix, "pdf")
 pngFilePath = gg.Path.join(prefix, "png")
-dbergraph.to_dot_helper().write_image(pdfFilePath)
+dot = dbergraph.to_dot_helper()
+dot.TitleText = "<b>[dbergraph]</b>"
+dot.write_image(pdfFilePath)
 gg.Pdf.convert(pdfFilePath, pngFilePath)
 ```

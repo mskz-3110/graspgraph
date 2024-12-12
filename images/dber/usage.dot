@@ -1,5 +1,5 @@
 digraph {
-	graph [bgcolor=white dpi=350 margin=0 rankdir=LR]
+	graph [bgcolor=white dpi=350 fontcolor=black label=<<b>[dbergraph]</b>> labeljust=c labelloc=t margin=0 rankdir=LR]
 	node [fontname="Yu Mincho Demibold" shape=none]
 	edge [color=skyblue]
 	subgraph cluster_Database0 {

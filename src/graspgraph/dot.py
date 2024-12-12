@@ -2,7 +2,8 @@ import graphviz
 import os
 
 class DotColors:
-  def __init__(self, cluster = "black", tableFont = "black", tableFrame = "gray", relation = "skyblue", background = "white"):
+  def __init__(self, title = "black", cluster = "black", tableFont = "black", tableFrame = "gray", relation = "skyblue", background = "white"):
+    self.Title = title
     self.Cluster = cluster
     self.TableFont = tableFont
     self.TableFrame = tableFrame
@@ -19,6 +20,10 @@ class DotFactory:
       else:
         databases[table.Namespace] = [table]
     dot = graphviz.Digraph()
+    dot.graph_attr["label"] = "<>"
+    dot.graph_attr["labelloc"] = "t"
+    dot.graph_attr["labeljust"] = "c"
+    dot.graph_attr["fontcolor"] = colors.Title
     dot.graph_attr["margin"] = "0"
     dot.graph_attr["rankdir"] = "LR"
     dot.graph_attr["dpi"] = "350"
@@ -50,6 +55,14 @@ class DotFactory:
 class DotHelper:
   def __init__(self, dot):
     self.Dot = dot
+
+  @property
+  def TitleText(self):
+    return self.Dot.graph_attr["label"][1:][:-1]
+
+  @TitleText.setter
+  def TitleText(self, value):
+    self.Dot.graph_attr["label"] = """<{}>""".format(value)
 
   def write_image(self, filePath, cleanup = False, view = False):
     self.Dot.render("""{}.dot""".format(os.path.splitext(filePath)[0]), outfile = filePath, cleanup = cleanup, view = view)
