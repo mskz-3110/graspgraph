@@ -24,10 +24,10 @@ def test_dbergraph_usage():
   with open("./images/dber/database_input.yaml", "r", encoding = "utf-8") as file:
     dbergraph = gg.Dbergraph(gg.Database.from_yaml(file))
     dbergraph.Database.update()
+    dot = dbergraph.to_dot_helper()
+    dot.TitleText = "<b>[dbergraph]</b>"
     prefix = "./images/dber/usage"
     pdfFilePath = gg.Path.join(prefix, "pdf")
     pngFilePath = gg.Path.join(prefix, "png")
-    dot = dbergraph.to_dot_helper()
-    dot.TitleText = "<b>[dbergraph]</b>"
     dot.write_image(pdfFilePath)
     gg.Pdf.convert(pdfFilePath, pngFilePath)
