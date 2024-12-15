@@ -24,7 +24,7 @@ Make it easier to understand with graphs
 
 |Version|Summary|
 |:--|:--|
-|0.2.2|Add dbergraph|
+|0.2.3|Add dbergraph|
 |0.1.0|Release graspgraph(statsgraph)|
 
 ## Installation
