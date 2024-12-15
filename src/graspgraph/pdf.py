@@ -10,8 +10,8 @@ class Pdf:
     return self
 
   def save(self, filePath, pageIndex = 0):
-    path = Path.from_file_path(filePath)
-    self.Pages[pageIndex].save(filePath, path.Ext.upper())
+    _, _, ext = Path.split(filePath)
+    self.Pages[pageIndex].save(filePath, ext.upper())
     return self
 
   @classmethod

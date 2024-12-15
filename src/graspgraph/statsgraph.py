@@ -113,6 +113,3 @@ class Statsgraph:
       [ySimpleStats.Min, min(self.YAxis.Tick.Dtick * self.YAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)],
       [FigureTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick],
       self.Colors)
-
-  def to_figure_helper(self):
-    return FigureHelper(self.to_figure())

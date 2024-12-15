@@ -16,6 +16,35 @@ class FigureColors:
     self.Line = line
     self.Fill = fill
 
+class Figure(pgo.Figure):
+  @property
+  def LayoutTitleText(self):
+    return self.layout.title.text
+
+  @LayoutTitleText.setter
+  def LayoutTitleText(self, value):
+    self.layout.title.text = value
+
+  @property
+  def XTitleText(self):
+    return self.layout.xaxis.title.text
+
+  @XTitleText.setter
+  def XTitleText(self, value):
+    self.layout.xaxis.title.text = value
+
+  @property
+  def YTitleText(self):
+    return self.layout.yaxis.title.text
+
+  @YTitleText.setter
+  def YTitleText(self, value):
+    self.layout.yaxis.title.text = value
+
+  def Save(self, filePath, width = 1600, height = 900):
+    Path(Path.split(filePath)[0]).makedirs()
+    self.write_image(filePath, width = width, height = height)
+
 class FigureFactory:
   @classmethod
   def stats(cls, xValues, yValueGroups, yRange, ticks, colors):
@@ -26,7 +55,7 @@ class FigureFactory:
       if len(yValueGroups[i]) <= 0:
         yValueGroups[i] = [0]
         ticks[1].Dtick = 1
-    figure = pgo.Figure(data = [
+    figure = Figure(data = [
       pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[0], line = dict(color = colors.Line, width = 0)),
       pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[1], line = dict(color = colors.Line, width = 5), fillcolor = colors.Fill, fill = "tonexty"),
       pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[2], line = dict(color = colors.Line, width = 0), fillcolor = colors.Fill, fill = "tonexty")])
@@ -38,35 +67,3 @@ class FigureFactory:
       font = dict(size = 14),
       paper_bgcolor = colors.Background, plot_bgcolor = colors.Background)
     return figure
-
-class FigureHelper:
-  def __init__(self, figure):
-    self.Figure = figure
-
-  @property
-  def LayoutTitleText(self):
-    return self.Figure.layout.title.text
-
-  @LayoutTitleText.setter
-  def LayoutTitleText(self, value):
-    self.Figure.layout.title.text = value
-
-  @property
-  def XTitleText(self):
-    return self.Figure.layout.xaxis.title.text
-
-  @XTitleText.setter
-  def XTitleText(self, value):
-    self.Figure.layout.xaxis.title.text = value
-
-  @property
-  def YTitleText(self):
-    return self.Figure.layout.yaxis.title.text
-
-  @YTitleText.setter
-  def YTitleText(self, value):
-    self.Figure.layout.yaxis.title.text = value
-
-  def write_image(self, filePath, width = 1600, height = 900):
-    Path.from_file_path(filePath).makedirs()
-    self.Figure.write_image(filePath, width = width, height = height)

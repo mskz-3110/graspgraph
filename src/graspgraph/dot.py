@@ -10,6 +10,18 @@ class DotColors:
     self.Relation = relation
     self.Background = background
 
+class Digraph(graphviz.Digraph):
+  @property
+  def TitleText(self):
+    return self.graph_attr["label"][1:][:-1]
+
+  @TitleText.setter
+  def TitleText(self, value):
+    self.graph_attr["label"] = """<{}>""".format(value)
+
+  def Save(self, filePath, cleanup = False, view = False):
+    self.render("""{}.dot""".format(os.path.splitext(filePath)[0]), outfile = filePath, cleanup = cleanup, view = view)
+
 class DotFactory:
   @classmethod
   def dber(cls, database, colors, fontName):
@@ -19,7 +31,7 @@ class DotFactory:
         databases[table.Namespace].append(table)
       else:
         databases[table.Namespace] = [table]
-    dot = graphviz.Digraph()
+    dot = Digraph()
     dot.graph_attr["label"] = "<>"
     dot.graph_attr["labelloc"] = "t"
     dot.graph_attr["labeljust"] = "c"
@@ -51,18 +63,3 @@ class DotFactory:
     for relation in relations:
       dot.edge(relation[1], relation[0], dir = "back", arrowtail = "crow")
     return dot
-
-class DotHelper:
-  def __init__(self, dot):
-    self.Dot = dot
-
-  @property
-  def TitleText(self):
-    return self.Dot.graph_attr["label"][1:][:-1]
-
-  @TitleText.setter
-  def TitleText(self, value):
-    self.Dot.graph_attr["label"] = """<{}>""".format(value)
-
-  def write_image(self, filePath, cleanup = False, view = False):
-    self.Dot.render("""{}.dot""".format(os.path.splitext(filePath)[0]), outfile = filePath, cleanup = cleanup, view = view)

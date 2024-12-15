@@ -28,8 +28,11 @@ class Color:
   def B(self, value):
     self.__B = min(max(value, 0), 255)
 
-  def to_string(self, format):
-    return format.format(R = self.R, G = self.G, B = self.B)
+  def to_string(self, format = "#{R:02X}{G:02X}{B:02X}"):
+    return format.format(R = self.__R, G = self.__G, B = self.__B)
+
+  def __str__(self):
+    return self.to_string()
 
   @classmethod
   def from_hex_code(cls, hexCode):

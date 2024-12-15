@@ -24,8 +24,8 @@ Make it easier to understand with graphs
 
 |Version|Summary|
 |:--|:--|
-|0.2.1|Add dbergraph|
-|0.1.0|Release graspgraph|
+|0.2.2|Add dbergraph|
+|0.1.0|Release graspgraph(statsgraph)|
 
 ## Installation
 ### [graspgraph](https://pypi.org/project/graspgraph/)
@@ -47,11 +47,11 @@ statsgraph = gg.Statsgraph(
   gg.StatsgraphAxis([1, 2, 3, 4, 5]),
   gg.StatsgraphAxis([11, 12, 13, 14, 15]),
   gg.FigureColors(line = "blue"))
-figure = statsgraph.to_figure_helper()
+figure = statsgraph.to_figure()
 figure.LayoutTitleText = "<b>[statsgraph]<br>タイトル</b>"
 figure.XTitleText = "X軸"
 figure.YTitleText = "Y軸"
-figure.write_image("./statsgraph.png")
+figure.Save("./statsgraph.png")
 ```
 
 ### dbergraph
@@ -62,10 +62,10 @@ import graspgraph as gg
 prefix = "./database"
 dbergraph = gg.Dbergraph(gg.Database.from_file_path(gg.Path.join(prefix, "yaml")))
 dbergraph.Database.update()
-dot = dbergraph.to_dot_helper()
+dot = dbergraph.to_dot()
 dot.TitleText = "<b>[dbergraph]</b>"
 pdfFilePath = gg.Path.join(prefix, "pdf")
 pngFilePath = gg.Path.join(prefix, "png")
-dot.write_image(pdfFilePath)
+dot.Save(pdfFilePath)
 gg.Pdf.convert(pdfFilePath, pngFilePath)
 ```
