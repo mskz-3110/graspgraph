@@ -16,6 +16,8 @@ pyemon = "*"
 
 [dev-packages]
 pytest = "*"
+build = "*"
+twine = "*"
 
 [requires]
 python_version = "3.13"
