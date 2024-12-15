@@ -1,5 +1,5 @@
 import plotly.graph_objects as pgo
-from .path import *
+from pyemon.path import *
 
 class FigureTick:
   def __init__(self, dtick = 1, format = "d"):

@@ -12,6 +12,7 @@ pydantic = "*"
 pyyaml = "*"
 inflection = "*"
 pdf2image = "*"
+pyemon = "*"
 
 [dev-packages]
 pytest = "*"

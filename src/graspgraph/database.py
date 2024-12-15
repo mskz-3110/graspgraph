@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 import yaml
 import inflection
-from .path import *
+from pyemon.path import *
 
 class Column(BaseModel):
   Name: str

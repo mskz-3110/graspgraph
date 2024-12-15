@@ -23,6 +23,7 @@ dependencies = [
   "pyyaml",
   "inflection",
   "pdf2image",
+  "pyemon",
 ]
 
 [project.urls]

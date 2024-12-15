@@ -1,5 +1,5 @@
 from pdf2image import convert_from_path
-from .path import *
+from pyemon.path import *
 
 class Pdf:
   def __init__(self, pages = []):
