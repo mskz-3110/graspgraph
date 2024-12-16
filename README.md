@@ -24,6 +24,7 @@ Make it easier to understand with graphs
 
 |Version|Summary|
 |:--|:--|
+|0.2.5|Refactoring|
 |0.2.4|Add dbergraph|
 |0.1.0|Release graspgraph(statsgraph)|
 
@@ -51,7 +52,7 @@ figure = statsgraph.to_figure()
 figure.LayoutTitleText = "<b>[statsgraph]<br>タイトル</b>"
 figure.XTitleText = "X軸"
 figure.YTitleText = "Y軸"
-figure.Save("./statsgraph.png")
+figure.Write("./statsgraph.png")
 ```
 
 ### dbergraph
@@ -66,6 +67,13 @@ dot = dbergraph.to_dot()
 dot.TitleText = "<b>[dbergraph]</b>"
 pdfFilePath = gg.Path.join(prefix, "pdf")
 pngFilePath = gg.Path.join(prefix, "png")
-dot.Save(pdfFilePath)
+dot.Write(pdfFilePath)
 gg.Pdf.convert(pdfFilePath, pngFilePath)
 ```
+
+## CLI
+### pdf.convert
+Convert PDF to image
+
+#### 1. Image(PNG) conversion by CLI execution
+`graspgraph pdf.convert graph.pdf graph.png`

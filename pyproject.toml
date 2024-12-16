@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graspgraph"
-version = "0.2.4"
+version = "0.2.5"
 authors = [{name = "mskz-3110", email = "mskz.saito@gmail.com"}]
 description = "Create easy-to-understand graphs"
 readme = "README.md"
@@ -25,6 +25,9 @@ dependencies = [
   "pdf2image",
   "pyemon",
 ]
+
+[project.scripts]
+graspgraph = "graspgraph.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/mskz-3110/graspgraph"

@@ -1,5 +1,6 @@
 import graphviz
 import os
+from typing_extensions import deprecated
 
 class DotColors:
   def __init__(self, title = "black", cluster = "black", tableFont = "black", tableFrame = "gray", relation = "skyblue", background = "white"):
@@ -19,8 +20,12 @@ class Digraph(graphviz.Digraph):
   def TitleText(self, value):
     self.graph_attr["label"] = """<{}>""".format(value)
 
-  def Save(self, filePath, cleanup = False, view = False):
+  def Write(self, filePath, cleanup = False, view = False):
     self.render("""{}.dot""".format(os.path.splitext(filePath)[0]), outfile = filePath, cleanup = cleanup, view = view)
+
+  @deprecated("Please use Write()")
+  def Save(self, filePath, cleanup = False, view = False):
+    self.Write(filePath, cleanup, view)
 
 class DotFactory:
   @classmethod

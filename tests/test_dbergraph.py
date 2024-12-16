@@ -14,7 +14,7 @@ def test_dbergraph():
     pngFilePath = Path.join(prefix, "png")
     dot = dbergraph.to_dot()
     dot.TitleText = "<b>[dbergraph]</b>"
-    dot.Save(pdfFilePath)
+    dot.Write(pdfFilePath)
     gg.Pdf.convert(pdfFilePath, pngFilePath)
 
 def test_dbergraph_usage():
@@ -25,5 +25,5 @@ def test_dbergraph_usage():
   prefix = "./images/dber/usage"
   pdfFilePath = Path.join(prefix, "pdf")
   pngFilePath = Path.join(prefix, "png")
-  dot.Save(pdfFilePath)
+  dot.Write(pdfFilePath)
   gg.Pdf.convert(pdfFilePath, pngFilePath)

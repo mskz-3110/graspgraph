@@ -1,5 +1,6 @@
 import plotly.graph_objects as pgo
 from pyemon.path import *
+from typing_extensions import deprecated
 
 class FigureTick:
   def __init__(self, dtick = 1, format = "d"):
@@ -41,9 +42,13 @@ class Figure(pgo.Figure):
   def YTitleText(self, value):
     self.layout.yaxis.title.text = value
 
-  def Save(self, filePath, width = 1600, height = 900):
+  def Write(self, filePath, width = 1600, height = 900):
     Path(Path.split(filePath)[0]).makedirs()
     self.write_image(filePath, width = width, height = height)
+
+  @deprecated("Please use Write()")
+  def Save(self, filePath, width = 1600, height = 900):
+    self.Write(filePath, width, height)
 
 class FigureFactory:
   @classmethod
