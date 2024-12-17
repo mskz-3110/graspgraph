@@ -76,4 +76,11 @@ gg.Pdf.convert(pdfFilePath, pngFilePath)
 Convert PDF to image
 
 #### 1. Image(PNG) conversion by CLI execution
+
+```
+pdf.convert # <pdf file path> <image file path>
+```
 `graspgraph pdf.convert graph.pdf graph.png`
+```
+graph.png is done.
+```
