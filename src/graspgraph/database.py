@@ -62,7 +62,7 @@ class Database(BaseModel):
     return self
 
   def save(self, filePath):
-    Path(Path.split(filePath)[0]).makedirs()
+    Path.from_file_path(filePath).makedirs()
     with open(filePath, "w", encoding = "utf-8", newline = "\n") as file:
       yaml.dump(self.model_dump(), file, sort_keys = False, default_flow_style = False, allow_unicode = True)
     return self

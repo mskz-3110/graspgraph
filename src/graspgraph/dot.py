@@ -23,10 +23,6 @@ class Digraph(graphviz.Digraph):
   def Write(self, filePath, cleanup = False, view = False):
     self.render("""{}.dot""".format(os.path.splitext(filePath)[0]), outfile = filePath, cleanup = cleanup, view = view)
 
-  @deprecated("Please use Write()")
-  def Save(self, filePath, cleanup = False, view = False):
-    self.Write(filePath, cleanup, view)
-
 class DotFactory:
   @classmethod
   def dber(cls, database, colors, fontName):

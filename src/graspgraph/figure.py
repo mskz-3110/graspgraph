@@ -43,12 +43,8 @@ class Figure(pgo.Figure):
     self.layout.yaxis.title.text = value
 
   def Write(self, filePath, width = 1600, height = 900):
-    Path(Path.split(filePath)[0]).makedirs()
+    Path.from_file_path(filePath).makedirs()
     self.write_image(filePath, width = width, height = height)
-
-  @deprecated("Please use Write()")
-  def Save(self, filePath, width = 1600, height = 900):
-    self.Write(filePath, width, height)
 
 class FigureFactory:
   @classmethod
