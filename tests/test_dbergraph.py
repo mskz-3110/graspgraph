@@ -7,7 +7,7 @@ def test_dbergraph():
   with open("./images/dber/database_input.yaml", "r", encoding = "utf-8") as file:
     dbergraph = gg.Dbergraph(
       gg.Database.from_yaml(file),
-      gg.DotColors("orange", "blue", "white", "green", "red", "gray"))
+      gg.DbergraphColors("orange", "blue", "white", "green", "red", "gray"))
     dbergraph.Database.update().save("./images/dber/database_output.yaml")
     prefix = "./images/dber/sample_coloring"
     pdfFilePath = Path.join(prefix, "pdf")

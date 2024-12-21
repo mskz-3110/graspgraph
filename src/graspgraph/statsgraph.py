@@ -64,12 +64,17 @@ class MultipleStats:
   def Max(self):
     return self.__Max
 
+class StatsgraphTick:
+  def __init__(self, dtick = 1, format = "d"):
+    self.Dtick = dtick
+    self.Format = format
+
 class StatsgraphAxis:
   def __init__(self, values, maxCount = 0, tick = None):
     self.__Values = tuple(values)
     self.MaxCount = maxCount
     if tick is None:
-      tick = FigureTick()
+      tick = StatsgraphTick()
     self.Tick = tick
 
   @property
@@ -86,12 +91,22 @@ class StatsgraphAxis:
       value = max(len(self.__Values), 1)
     self.__MaxCount = value
 
+class StatsgraphColors:
+  def __init__(self, layoutTitle = "black", xTitle = "black", yTitle = "black", grid = "gray", background = "white", line = "rgb(0, 0, 0)", fill = "rgba(0, 0, 0, 0.15)"):
+    self.LayoutTitle = layoutTitle
+    self.XTitle = xTitle
+    self.YTitle = yTitle
+    self.Grid = grid
+    self.Background = background
+    self.Line = line
+    self.Fill = fill
+
 class Statsgraph:
   def __init__(self, xAxis, yAxis, colors = None):
     self.XAxis = xAxis
     self.YAxis = yAxis
     if colors is None:
-      colors = FigureColors()
+      colors = StatsgraphColors()
     self.Colors = colors
 
   def to_figure(self):
@@ -107,9 +122,25 @@ class Statsgraph:
         xDtick = step
     ySimpleStats = SimpleStats(self.YAxis.Values)
     yMultipleStats = MultipleStats(self.YAxis.Values, self.XAxis.MaxCount)
-    return FigureFactory.stats(
-      xValues,
-      [yMultipleStats.Min, yMultipleStats.Avg, yMultipleStats.Max],
-      [ySimpleStats.Min, min(self.YAxis.Tick.Dtick * self.YAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)],
-      [FigureTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick],
-      self.Colors)
+    yValueGroups = [yMultipleStats.Min, yMultipleStats.Avg, yMultipleStats.Max]
+    yRange = [ySimpleStats.Min, min(self.YAxis.Tick.Dtick * self.YAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)]
+    ticks = [StatsgraphTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick]
+    if len(xValues) <= 0:
+      xValues = [0]
+      ticks[0].Dtick = 1
+    for i in range(3):
+      if len(yValueGroups[i]) <= 0:
+        yValueGroups[i] = [0]
+        ticks[1].Dtick = 1
+    figure = Figure(data = [
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[0], line = dict(color = self.Colors.Line, width = 0)),
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[1], line = dict(color = self.Colors.Line, width = 5), fillcolor = self.Colors.Fill, fill = "tonexty"),
+      pgo.Scatter(showlegend = False, mode = "lines", x = xValues, y = yValueGroups[2], line = dict(color = self.Colors.Line, width = 0), fillcolor = self.Colors.Fill, fill = "tonexty")])
+    figure.update_xaxes(zeroline = True, zerolinecolor = self.Colors.Grid, zerolinewidth = 0.5, tickformat = ticks[0].Format, dtick = ticks[0].Dtick, linecolor = self.Colors.Grid, linewidth = 3, gridcolor = self.Colors.Grid, griddash = "dot", mirror = True)
+    figure.update_yaxes(zeroline = True, zerolinecolor = self.Colors.Grid, zerolinewidth = 0.5, tickformat = ticks[1].Format, dtick = ticks[1].Dtick, linecolor = self.Colors.Grid, linewidth = 3, gridcolor = self.Colors.Grid, griddash = "dot", mirror = True)
+    figure.update_layout(title = dict(text = "", font = dict(color = self.Colors.LayoutTitle, size = 26), x = 0.5),
+      xaxis = dict(title = "", color = self.Colors.XTitle, tick0 = xValues[0]),
+      yaxis = dict(title = "", color = self.Colors.YTitle, range = yRange),
+      font = dict(size = 14),
+      paper_bgcolor = self.Colors.Background, plot_bgcolor = self.Colors.Background)
+    return figure

@@ -29,7 +29,7 @@ def test_statsgraph():
   statsgraph = gg.Statsgraph(
     gg.StatsgraphAxis([1, 2, 3, 4, 5]),
     gg.StatsgraphAxis([1, 2, 1000, 4, 5]),
-    gg.FigureColors(layoutTitle = "red", line = "red"))
+    gg.StatsgraphColors(layoutTitle = "red", line = "red"))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_over.png")
@@ -38,9 +38,9 @@ def test_statsgraph():
   rgbGreen = green.to_string("""rgb({R}, {G}, {B})""")
   rgbaGreen = green.to_string("""rgba({R}, {G}, {B}, 0.15)""")
   statsgraph = gg.Statsgraph(
-    gg.StatsgraphAxis(gg.Array.arange(10, 30, 5), tick = gg.FigureTick(5)),
-    gg.StatsgraphAxis(gg.Array.arange(100, 300, 50), tick = gg.FigureTick(50)),
-    gg.FigureColors(layoutTitle = "red", xTitle = "blue", yTitle = "blue", grid = "white", background = "gray", line = rgbGreen, fill = rgbaGreen))
+    gg.StatsgraphAxis(gg.Array.arange(10, 30, 5), tick = gg.StatsgraphTick(5)),
+    gg.StatsgraphAxis(gg.Array.arange(100, 300, 50), tick = gg.StatsgraphTick(50)),
+    gg.StatsgraphColors(layoutTitle = "red", xTitle = "blue", yTitle = "blue", grid = "white", background = "gray", line = rgbGreen, fill = rgbaGreen))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_coloring.png")
@@ -51,7 +51,7 @@ def test_statsgraph():
   statsgraph = gg.Statsgraph(
     gg.StatsgraphAxis(gg.Array.arange(1, len(yValues), 1)),
     gg.StatsgraphAxis(yValues),
-    gg.FigureColors(layoutTitle = rgbGreen, line = rgbGreen, fill = rgbaGreen))
+    gg.StatsgraphColors(layoutTitle = rgbGreen, line = rgbGreen, fill = rgbaGreen))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_sin_simple.png")
@@ -64,8 +64,8 @@ def test_statsgraph():
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_sin_multiple.png")
 
-  statsgraph.XAxis = gg.StatsgraphAxis(gg.Array.arange(-0.9, 0.9, 0.2), tick = gg.FigureTick(0.2, ".1f"))
-  statsgraph.YAxis = gg.StatsgraphAxis(gg.Array.arange(-2.25, 2.25, 0.5), tick = gg.FigureTick(0.5, ".1f"))
+  statsgraph.XAxis = gg.StatsgraphAxis(gg.Array.arange(-0.9, 0.9, 0.2), tick = gg.StatsgraphTick(0.2, ".1f"))
+  statsgraph.YAxis = gg.StatsgraphAxis(gg.Array.arange(-2.25, 2.25, 0.5), tick = gg.StatsgraphTick(0.5, ".1f"))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_float_simple.png")
@@ -81,7 +81,7 @@ def test_statsgraph_usage():
   statsgraph = gg.Statsgraph(
     gg.StatsgraphAxis([1, 2, 3, 4, 5]),
     gg.StatsgraphAxis([11, 12, 13, 14, 15]),
-    gg.FigureColors(line = "blue"))
+    gg.StatsgraphColors(line = "blue"))
   figure = statsgraph.to_figure()
   figure.LayoutTitleText = "<b>[statsgraph]<br>タイトル</b>"
   figure.XTitleText = "X軸"
