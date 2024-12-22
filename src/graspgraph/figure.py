@@ -1,6 +1,11 @@
 import plotly.graph_objects as pgo
 from pyemon.path import *
 
+class FigureTick:
+  def __init__(self, dtick = 1, format = "d"):
+    self.Dtick = dtick
+    self.Format = format
+
 class Figure(pgo.Figure):
   @property
   def LayoutTitleText(self):

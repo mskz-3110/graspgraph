@@ -3,7 +3,7 @@ import yaml
 import inflection
 from pyemon.path import *
 
-class Column(BaseModel):
+class DatabaseColumn(BaseModel):
   Name: str
   Type: str
   Comment: str = ""
@@ -24,11 +24,11 @@ class Column(BaseModel):
   def to_name(cls, name):
     return inflection.underscore(inflection.singularize(name))
 
-class Table(BaseModel):
+class DatabaseTable(BaseModel):
   Namespace: str
   Name: str
   Comment: str = ""
-  Columns: list[Column] = []
+  Columns: list[DatabaseColumn] = []
 
   def path(self):
     return """{}.{}""".format(self.Namespace, self.Name)
@@ -40,13 +40,13 @@ class Table(BaseModel):
       return """{}({})""".format(self.Name, self.Comment)
 
 class Database(BaseModel):
-  Tables: list[Table] = []
+  Tables: list[DatabaseTable] = []
 
   def update(self):
     for table in self.Tables:
       otherTables = list(filter(lambda otherTable: table != otherTable, self.Tables))
       for column in table.Columns:
-        columnName = """{}_{}""".format(Column.to_name(table.Name), Column.to_name(column.Name))
+        columnName = """{}_{}""".format(DatabaseColumn.to_name(table.Name), DatabaseColumn.to_name(column.Name))
         for otherTable in otherTables:
           for otherColumn in otherTable.Columns:
             if columnName == otherColumn.Name:

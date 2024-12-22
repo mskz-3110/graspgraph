@@ -64,17 +64,12 @@ class MultipleStats:
   def Max(self):
     return self.__Max
 
-class StatsgraphTick:
-  def __init__(self, dtick = 1, format = "d"):
-    self.Dtick = dtick
-    self.Format = format
-
 class StatsgraphAxis:
   def __init__(self, values, maxCount = 0, tick = None):
     self.__Values = tuple(values)
     self.MaxCount = maxCount
     if tick is None:
-      tick = StatsgraphTick()
+      tick = FigureTick()
     self.Tick = tick
 
   @property
@@ -124,7 +119,7 @@ class Statsgraph:
     yMultipleStats = MultipleStats(self.YAxis.Values, self.XAxis.MaxCount)
     yValueGroups = [yMultipleStats.Min, yMultipleStats.Avg, yMultipleStats.Max]
     yRange = [ySimpleStats.Min, min(self.YAxis.Tick.Dtick * self.YAxis.MaxCount + ySimpleStats.Min, ySimpleStats.Max)]
-    ticks = [StatsgraphTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick]
+    ticks = [FigureTick(xDtick, self.XAxis.Tick.Format), self.YAxis.Tick]
     if len(xValues) <= 0:
       xValues = [0]
       ticks[0].Dtick = 1

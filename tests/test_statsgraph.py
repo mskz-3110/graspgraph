@@ -2,7 +2,7 @@ import graspgraph as gg
 import numpy as np
 
 def figure_set_title_text(figure, statsgraph):
-  figure.LayoutTitleText = """<b>[graspgraph]<br>X(Dtick:{:.3f} MaxCount:{}) Y(Dtick:{:.3f} MaxCount:{})</b>""".format(
+  figure.LayoutTitleText = """<b>[statsgraph]<br>X(Dtick:{:.3f} MaxCount:{}) Y(Dtick:{:.3f} MaxCount:{})</b>""".format(
     figure.layout.xaxis.dtick, statsgraph.XAxis.MaxCount,
     figure.layout.yaxis.dtick, statsgraph.YAxis.MaxCount)
   figure.XTitleText = "X"
@@ -38,8 +38,8 @@ def test_statsgraph():
   rgbGreen = green.to_string("""rgb({R}, {G}, {B})""")
   rgbaGreen = green.to_string("""rgba({R}, {G}, {B}, 0.15)""")
   statsgraph = gg.Statsgraph(
-    gg.StatsgraphAxis(gg.Array.arange(10, 30, 5), tick = gg.StatsgraphTick(5)),
-    gg.StatsgraphAxis(gg.Array.arange(100, 300, 50), tick = gg.StatsgraphTick(50)),
+    gg.StatsgraphAxis(gg.Array.arange(10, 30, 5), tick = gg.FigureTick(5)),
+    gg.StatsgraphAxis(gg.Array.arange(100, 300, 50), tick = gg.FigureTick(50)),
     gg.StatsgraphColors(layoutTitle = "red", xTitle = "blue", yTitle = "blue", grid = "white", background = "gray", line = rgbGreen, fill = rgbaGreen))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
@@ -64,8 +64,8 @@ def test_statsgraph():
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_sin_multiple.png")
 
-  statsgraph.XAxis = gg.StatsgraphAxis(gg.Array.arange(-0.9, 0.9, 0.2), tick = gg.StatsgraphTick(0.2, ".1f"))
-  statsgraph.YAxis = gg.StatsgraphAxis(gg.Array.arange(-2.25, 2.25, 0.5), tick = gg.StatsgraphTick(0.5, ".1f"))
+  statsgraph.XAxis = gg.StatsgraphAxis(gg.Array.arange(-0.9, 0.9, 0.2), tick = gg.FigureTick(0.2, ".1f"))
+  statsgraph.YAxis = gg.StatsgraphAxis(gg.Array.arange(-2.25, 2.25, 0.5), tick = gg.FigureTick(0.5, ".1f"))
   figure = statsgraph.to_figure()
   figure_set_title_text(figure, statsgraph)
   figure.Write("./images/stats/sample_float_simple.png")
