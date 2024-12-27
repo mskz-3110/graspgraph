@@ -30,4 +30,4 @@ class PdfConvertTask(Task):
     imageFilePath = List.shift(argv)
     if pdfFilePath is not None and imageFilePath is not None:
       Pdf.convert(pdfFilePath, imageFilePath)
-      print(FileStatus(imageFilePath, "done"))
+      print(Status(imageFilePath, "done"))

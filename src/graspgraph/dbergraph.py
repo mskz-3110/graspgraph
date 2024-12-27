@@ -1,4 +1,4 @@
-from .graphviz import *
+from .digraph import *
 from .database import *
 
 class DbergraphColors:

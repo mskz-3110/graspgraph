@@ -10,12 +10,18 @@ Make it easier to understand with graphs
 ### Database ER diagram-like
 ![](./images/dber/usage.png)
 
+### Pivot table
+![](./images/pivot/usage.png)
+
 ## What is possible
 ### statsgraph
 1. Graphing statistics
 
 ### dbergraph
 1. Graphing database table definition information
+
+### pivotgraph
+1. Graphing a pivot table
 
 ## Reason for development
 - I want to make things that are difficult to understand through text alone easier to understand by creating graphs
@@ -24,6 +30,7 @@ Make it easier to understand with graphs
 
 |Version|Summary|
 |:--|:--|
+|0.3.4|Add pivotgraph|
 |0.2.5|Refactoring|
 |0.2.4|Add dbergraph|
 |0.1.0|Release graspgraph(statsgraph)|
@@ -69,6 +76,25 @@ pdfFilePath = gg.Path.join(prefix, "pdf")
 pngFilePath = gg.Path.join(prefix, "png")
 dot.Write(pdfFilePath)
 gg.Pdf.convert(pdfFilePath, pngFilePath)
+```
+
+### pivotgraph
+![](./images/pivot/usage.png)
+```python
+import graspgraph as gg
+
+pivotTable = gg.PivotTable.from_array([
+  ["", "収入", "支出", "利益"],
+  ["1月", 1, 2, 3],
+  ["2月", -1, -2.5, -2],
+  ["3月", 0, -0.5, 1],
+])
+pivotgraph = gg.Pivotgraph(gg.PivotgraphAxis(pivotTable, gg.FigureTick(2)), gg.PivotgraphColors(bars = ["blue", "red", "green"]))
+figure = pivotgraph.to_figure()
+figure.LayoutTitleText = "<b>[pivotgraph]</b>"
+figure.XTitleText = "金額(百万円)"
+figure.YTitleText = "月次"
+figure.Write("./images/pivot/usage.png")
 ```
 
 ## CLI
